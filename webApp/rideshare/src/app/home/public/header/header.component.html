@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- show navbar brand --> 
+  <a class="navbar-brand" routerLink="/">
+    <img src="../../../assets/cholo-sm-30.png" width="30" height="30" class="d-inline-block align-top" 
+    alt="logo" style="background: url(../../../assets/cholo-sm-30.png) 0 0;">CHOLO</a>
+  <!-- navbar button -->
+  <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+    aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- collapsed navbar class -->
+  <div id="navbarTogglerDemo02" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+    <!-- button list  -->
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" >
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/" >Home
+          <span class="sr-only">(current)</span></a></li>
+<!-- show signup and login if user is not Authenticated -->
+      <ng-template [ngIf]="!isAuthenticated()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/signup">Sign Up
+            <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/login">Login
+            <span class="sr-only">(current)</span></a></li>
+      </ng-template>
+<!-- show profile, message and my rides if user is Authenticated -->
+      <ng-template [ngIf]="isAuthenticated()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/user/profile">Profile
+            <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/user/message">Message
+            <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/user/log">My Rides
+            <span class="sr-only">(current)</span></a></li>
+      </ng-template>
+    </ul>
+    <ul class="navbar-nav">
+<!-- show logout if user is Authenticated -->      
+      <ng-template [ngIf]="isAuthenticated()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" (click)="toggleEmail()" *ngIf="emailShow">{{ email() }}
+            <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item m-1" routerLinkActive="active">
+            <a class="btn btn-outline-secondary text-light" (click)="toggleEmail()" *ngIf="!emailShow">Stay</a></li>
+          <li class="nav-item m-1" routerLinkActive="active">
+            <a class="btn btn-outline-danger" routerLink="/" (click)="onLogout()" *ngIf="!emailShow">Logout</a></li>
+      </ng-template>
+    </ul>
+  </div>
+</nav><br>

@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <!-- show alert to fill out profile information     -->
+  <div class="alert alert-warning" role="alert" *ngIf="message">
+    You Just Signed Up to The CHOLO.com. For better experience, Please fill out The Profile Form
+    <a routerLinkActive="active" routerLink="/user/profile">here</a>
+  </div>
+  <div class="row">
+    <!-- column 1  user data-->
+    <div class="col-sm-5">
+      <div class="alert alert-info" role="alert" *ngIf="data">
+        <!-- show user name -->
+        <h2 style="font-size:20px">Hello! {{ data.profile.name }}</h2>
+      </div>
+        <!-- make user online or offline form -->
+      <form (ngSubmit)="onStateChange(f)" #f="ngForm">
+        <ul class="list-group" *ngIf="data">
+          <div class="jumbotron">
+          <!-- show user status -->
+            <h5 style="font-size: 18px">You Are Now:
+              <ng-template [ngIf]="data.status == 'online'"><button class="btn btn-outline-success" (click)="goOffline()">Online</button></ng-template>
+              <ng-template [ngIf]="data.status == 'offline' || data.status == ''"><button class="btn btn-outline-danger" type="submit" [disabled]="f.pristine">Offline</button></ng-template> 
+            </h5><br>
+          <!-- take user location -->
+          <h5 style="font-size: 16px">Share Your Location:      
+            <!-- get gps location -->
+            <button class="btn btn-outline-secondary float-right" type="submit" (click)="getGps()">Get Location</button>
+          </h5>    
+          <div class="form-group" style="font-size: 16px" required any>
+            <!-- city location input  data.location.city-->
+            <label class="col-12" for="city">City:
+              <input type="text" id="city" name="city" [ngModel]="gpsData.city" class="form-control" > </label>
+              <!-- gps location input -->
+            <label class="col-10" for="lat">latitude:
+              <input type="number" id="lat" name="lat" [ngModel]="gpsData.lat" class="form-control" > </label>
+            <label class="col-10" for="lng">longitude:
+              <input type="number" id="lng" name="lng" [ngModel]="gpsData.lng" class="form-control" > </label>
+          </div>
+        </div></ul>
+      </form> 
+    </div>
+    <!-- column 2 map -->
+    <div class="col-sm-7">
+      <div class="jumbotron">
+        <!-- show map , map selector -->
+        <app-map></app-map>
+      </div>
+    </div>
+  </div>
+  <!-- show current time -->
+  <p style="font-size: 14px">{{ time }}</p>
+</div>

@@ -1,0 +1,155 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- if selected is true show profile info -->
+      <ng-template [ngIf]="selected">
+        <!-- load user data list -->
+        <ul class="list-group" *ngIf="data">
+          <!-- show user data -->
+          <li class="list-group-item list-group-item-secondary">
+            <h3>Your Profile Info:</h3>
+            <button class="btn btn-outline-dark float-right" (click)="onStarted()">Edit Profile</button>
+            <h6>Profile  Photo</h6>
+            <img src="{{ data.profile.image }}" alt="profile" border="1" style="width:100px;"></li>
+          <li class="list-group-item list-group-item-info">Name: {{ data.profile.name }}</li>
+          <li class="list-group-item list-group-item-info">Email: {{ data.profile.email }}</li>
+          <li class="list-group-item list-group-item-info">Type: {{ data.profile.type }}</li>
+          <li class="list-group-item list-group-item-info">Vehicle Type : {{ data.profile.vehicle }}</li>
+          <li class="list-group-item list-group-item-info">Birth Date: {{ data.profile.birth_date }}</li>
+          <li class="list-group-item list-group-item-info">National ID# : {{ data.profile.nid }}</li>
+          <li class="list-group-item list-group-item-info">License #: {{ data.profile.did }}</li>
+          <li class="list-group-item list-group-item-info">Regisration : {{ data.profile.vno }}</li>
+          <li class="list-group-item list-group-item-info">Phone: {{ data.profile.phone }}</li>
+          <li class="list-group-item list-group-item-info">Gender: {{ data.profile.gender }}</li>
+          <li class="list-group-item list-group-item-info">Language: {{ data.profile.language }}</li>
+          <li class="list-group-item list-group-item-info">Education: {{ data.profile.education }}</li>
+          <li class="list-group-item list-group-item-info">Home City: {{ data.profile.home }}</li>
+          <li class="list-group-item list-group-item-info">Full Address: {{ data.profile.address }}</li>
+        </ul>
+      </ng-template>
+      <!-- if selected is false, show profile edit form options -->
+      <ng-template [ngIf]="!selected">
+      <form (ngSubmit)="onUpdate(f)" #f="ngForm">
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-secondary">
+            <h3>Update Your Profile:</h3>
+            <img src="{{ defaultImage }}" alt="profile" border="1" style="width:100px;">
+            <div class="float-md-right">
+              <!-- update edited info button -->
+              <button class="btn btn-outline-info" type="submit" [disabled]="!f.valid">Update</button>
+              <!-- cancle edit button -->
+              <button class="btn btn-outline-danger" (click)="onCancle()">Cancel</button>
+            </div></li>
+          <!-- edit name -->
+          <li class="list-group-item list-group-item-primary">
+          <label class="col-12" for="name">Name:
+            <input type="text" id="name" name="name" [ngModel]="data.profile.name" class="form-control" required> </label><br></li>
+            <!-- edit email -->
+          <li class="list-group-item list-group-item-primary">
+          <label class="col-12" for="email">Email:
+            <input type="email" id="email" name="email" [ngModel]="data.profile.email" class="form-control" required email> </label> <br></li>
+            <!-- edit  image link-->
+          <li class="list-group-item list-group-item-primary">
+          <label class="col-12" for="image">Image:
+            <input type="url" id="image" name="image" [(ngModel)]="defaultImage" class="form-control"> </label><br></li>
+          <div class="form-row">
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit type -->
+                <div class="card">
+                  <div class="card-header">Type:</div>
+                  <div class="card-body">
+                    <div class="radio" *ngFor="let type of types">
+                      <label class="col-6" for="type">
+                        <input type="radio" id="type" name="type" [ngModel]="data.profile.type" [value]="type" required> {{ type }} </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit gender-->
+                <div class="card">
+                  <div class="card-header">Gender:</div>
+                  <div class="card-body">
+                    <div class="radio" *ngFor="let gender of genders">
+                      <label class="col-6" for="gender">
+                        <input type="radio" id="gender" name="gender" [ngModel]="data.profile.gender" [value]="gender" required> {{ gender }} </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </div>
+          <li class="list-group-item list-group-item-primary">
+            <!-- edit Vehicle -->
+            <div class="card">
+              <div class="card-header">Vehicle Type:</div>
+              <div class="card-body">
+                <div class="form-check form-check-inline" *ngFor="let vehicle of vehicles">
+                  <input type="radio" id="vehicle" name="vehicle" [ngModel]="data.profile.vehicle" [value]="vehicle" required>{{ vehicle }}
+                  <label class="col-6" for="vehicle">  </label>
+                </div>
+              </div>
+            </div></li>
+          <div class="form-row">
+            <div class="col-md-6">
+              <!-- edit  birth date-->
+              <li class="list-group-item list-group-item-primary">
+                <label class="col-12" for="birth_date">Birth Date:
+                  <input type="date" id="birth_date" name="birth_date" [ngModel]="data.profile.birth_date" class="form-control" required> </label> </li>
+            </div>
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit  language-->
+                <label class="col-12" for="language">Language:
+                  <input type="text" id="language" name="language" [ngModel]="data.profile.language" class="form-control"> </label></li>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit  nid-->
+                <label class="col-12" for="nid">National ID:
+                  <input type="number" id="nid" name="nid" [ngModel]="data.profile.nid" class="form-control"> </label></li>
+            </div>
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit  did-->
+                <label class="col-12" for="did">License #:
+                  <input type="number" id="did" name="did" [ngModel]="data.profile.did" class="form-control"> </label></li>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit  phone-->
+                <label class="col-12" for="phone">Phone:
+                  <input type="number" id="phone" name="phone" [ngModel]="data.profile.phone" class="form-control" required> </label></li>
+            </div>
+            <div class="col-md-6">
+              <li class="list-group-item list-group-item-primary">
+                <!-- edit  vno-->
+                <label class="col-12" for="vno">Registration :
+                  <input type="text" id="vno" name="vno" [ngModel]="data.profile.vno" class="form-control"> </label></li>
+            </div>
+          </div>
+          <li class="list-group-item list-group-item-primary">
+            <!-- edit  education-->
+          <label class="col-12" for="education">Education:
+            <input type="text" id="education" name="education" [ngModel]="data.profile.education" class="form-control"> </label> <br> </li>
+          <li class="list-group-item list-group-item-primary">
+            <!-- edit  city-->
+          <label class="col-12" for="home">Home City:
+            <input type="text" id="home" name="home" [ngModel]="data.profile.home" class="form-control"> </label> <br></li>
+          <li class="list-group-item list-group-item-primary">
+          <!-- edit address -->
+          <label class="col-12" for="address">Full Address:
+            <input type="text" id="address" name="address" [ngModel]="data.profile.address" class="form-control"> </label><br>
+        </li></ul>
+      </form>
+      </ng-template><br><hr>
+    </div>
+  </div>
+</div>

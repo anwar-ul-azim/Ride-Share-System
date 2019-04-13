@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <!-- show this ng-template if user is not Authenticated -->
+  <ng-template [ngIf]="!isAuthenticated()">
+    <div class="container-fluid">
+      <div class="jumbotron" style="background : url('http://images.clipartpanda.com/cab-clipart-taxi-cab3.png') no-repeat; background-size: cover; width: 100%; height: 100%;">
+        <div class="row">
+          <div class="col-sm-7">
+            <!-- welcome message -->
+            <h1 style="font-size: 3vw">CHOLO WITH
+              <br>
+              <img src="../assets/cholo-sm-49.png" alt="site Logo" style="width:7%; height:auto; background: url(../assets/cholo-sm-49.png) 0 0;">
+              <span class="badge badge-secondary">CHOLO</span>
+            </h1>
+          </div>
+          <div class="col-sm-5">
+            <br>
+            <!-- get started button -->
+            <div class="float-right">
+              <button class="btn btn-warning" (click)="onStarted()" *ngIf="selected">Get Started</button>
+              <button class="btn btn-info" routerLink="/signup" *ngIf="!selected">Sign Up</button>
+              <button class="btn btn-success" routerLink="/login" *ngIf="!selected">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+            <!-- add web content here -->
+            <div id="jb02" class="card">
+              <h2 id="jbh">Share Your Location</h2>
+              <h2 id="jbh">Get a CHOLO Vehicle Nearby</h2> 
+              <img id="img01" src="../assets/cholo-300.png" alt="Notebook">
+            </div><br>
+        </div>
+        <div class="col-sm-6">
+          <div  class="card">
+            <!-- show sample map -->
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]=12 style="height: 185px;width: 100%">
+              <!-- show marker -->
+              <agm-marker [latitude]=" lat " [longitude]=" lng ">
+                <!-- show info window -->
+                <agm-info-window>
+                  <strong>Your position!!</strong>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map> 
+          </div><br>
+          <div id="jb01" class="card">
+            <!-- introduction -->
+            <p id="jbh"><br> Cholo is a location sharing application. Using Cholo You can easily find a CNG Auto Rickshaw or Taxi Cab nearby.
+              You can hair a Taxi or a CNG by calling or sending a mesage. It also helps the driver to get a passenger by sharing their location.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!-- show this ng-template if user is Authenticated -->
+  <ng-template [ngIf]="isAuthenticated()">
+    <!-- user component selector -->
+    <app-user></app-user>
+  </ng-template>
+</div> 

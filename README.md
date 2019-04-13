@@ -1,2 +1,1 @@
-# Ride-Share-System
-angular-5 web app
+Ride Share System - A cross platform web app 

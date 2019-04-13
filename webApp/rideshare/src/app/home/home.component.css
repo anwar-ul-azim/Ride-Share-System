@@ -1,0 +1,18 @@
+#jb01{
+  background:  url('https://cdn.dribbble.com/users/695124/screenshots/3754806/20_1x.png') no-repeat; width: 100%;
+}
+#jbh:hover{
+  background: rgba(249, 245, 255, 0.85);
+}
+#jbh{
+  background: rgba(249, 245, 255, 0.40); text-align: center; font-size: 20px;
+}
+#jb02{
+  background: url('https://preview.ibb.co/cmutpH/3_31a10_1024x576.png') no-repeat; background-size: cover;
+}
+#img01{
+  opacity: 0.25; filter: alpha(opacity=25); size: cover;
+}
+#img01:hover{
+  opacity: 0.80; filter: alpha(opacity=80);
+}

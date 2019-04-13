@@ -1,0 +1,88 @@
+<div class="form-group">
+  <!-- location search -->
+  <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
+    #search [formControl]="searchControl">
+</div>
+<!-- show map -->
+<agm-map  [latitude]="lat" 
+          [longitude]="lng" 
+          [zoom]=12 
+          (mapClick)="onClick($event)"
+           [styles]= "style"
+           [mapTypeControl] = true
+           [rotateControl] = true
+           style="height: 450px;">
+  <!-- multiple marker -->
+  <agm-marker  
+          *ngFor="let g of gps" 
+          [latitude]=" g.lat " 
+          [longitude]=" g.lng " 
+          [label]=" g.vehicle ">
+          <!-- marker info -->
+      <agm-info-window>
+        <strong>{{ g.name }}, <br>
+          <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI5LjczMSAyOS43MzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5LjczMSAyOS43MzE7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPGc+Cgk8cGF0aCBkPSJNMjMuODk1LDI5LjczMWMtMS4yMzcsMC0yLjczMS0wLjMxLTQuMzc0LTAuOTNjLTMuNjAyLTEuMzU4LTcuNTIxLTQuMDQyLTExLjAzNS03LjU1NiAgIGMtMy41MTUtMy41MTUtNi4xOTktNy40MzUtNy41NTgtMTEuMDM3Qy0wLjMwNyw2LjkzMy0wLjMxLDQuMjQ1LDAuOTIxLDMuMDE1YzAuMTc3LTAuMTc3LDAuMzU3LTAuMzY3LDAuNTQzLTAuNTYzICAgYzEuMTIzLTEuMTgxLDIuMzkyLTIuNTEsNC4wNzQtMi40NUM2LjY5NywwLjA1LDcuODIsMC43Nyw4Ljk3LDIuMjAxYzMuMzk4LDQuMjI2LDEuODY2LDUuNzMyLDAuMDkzLDcuNDc4bC0wLjMxMywwLjMxICAgYy0wLjI5LDAuMjktMC44MzgsMS42MzMsNC4yNiw2LjczMWMxLjY2NCwxLjY2NCwzLjA4MywyLjg4Miw0LjIxNywzLjYxOWMwLjcxNCwwLjQ2NCwxLjk5MSwxLjE2NiwyLjUxNSwwLjY0MmwwLjMxNS0wLjMxOCAgIGMxLjc0NC0xLjc2OSwzLjI1LTMuMjk2LDcuNDczLDAuMDk5YzEuNDMxLDEuMTUsMi4xNSwyLjI3MiwyLjE5OCwzLjQzM2MwLjA2OSwxLjY4MS0xLjI3LDIuOTUzLTIuNDUyLDQuMDc1ICAgYy0wLjE5NSwwLjE4Ni0wLjM4NSwwLjM2Ni0wLjU2MiwwLjU0MkMyNi4xMDMsMjkuNDI0LDI1LjEyNiwyOS43MzEsMjMuODk1LDI5LjczMXogTTUuNDE4LDFDNC4yMjMsMSwzLjE0NCwyLjEzNiwyLjE4OSwzLjE0MSAgIEMxLjk5NywzLjM0MywxLjgxMSwzLjUzOSwxLjYyOCwzLjcyMkMwLjcxMSw0LjYzOCwwLjgwNCw3LjA0NSwxLjg2NCw5Ljg1NmMxLjMxLDMuNDcyLDMuOTEzLDcuMjY2LDcuMzMsMTAuNjgzICAgYzMuNDE2LDMuNDE1LDcuMjA4LDYuMDE4LDEwLjY4MSw3LjMyN2MyLjgxMSwxLjA2Miw1LjIxOCwxLjE1Miw2LjEzMywwLjIzN2MwLjE4My0wLjE4MywwLjM3OS0wLjM2OSwwLjU4MS0wLjU2ICAgYzEuMDI3LTAuOTc2LDIuMTkyLTIuMDgyLDIuMTQxLTMuMzA5Yy0wLjAzNS0wLjg0My0wLjY0OS0xLjc1LTEuODI1LTIuNjk1Yy0zLjUxOS0yLjgzLTQuNTAzLTEuODMxLTYuMTM1LTAuMTc2bC0wLjMyLDAuMzIzICAgYy0wLjc4LDAuNzgxLTIuMDQ3LDAuNjA4LTMuNzY3LTAuNTFjLTEuMTkzLTAuNzc2LTIuNjY3LTIuMDM4LTQuMzc5LTMuNzUxYy00LjIzMS00LjIzLTUuNTg0LTYuODE5LTQuMjYtOC4xNDZsMC4zMTktMC4zMTUgICBjMS42NTktMS42MzIsMi42Ni0yLjYxNy0wLjE3MS02LjEzOEM3LjI0NSwxLjY1MSw2LjMzOSwxLjAzNyw1LjQ5NiwxLjAwMUM1LjQ3LDEsNS40NDQsMSw1LjQxOCwxeiIgZmlsbD0iI0Q4MDAyNyIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo="/>
+          {{ g.phone }}</strong>
+      </agm-info-window>
+  </agm-marker>
+<!-- show clicked marker -->
+  <agm-marker  [latitude]=" myPos.lat " [longitude]=" myPos.lng ">
+    <agm-info-window>
+      <strong>{{ myPos.win }},</strong>
+    </agm-info-window>
+  </agm-marker>
+<!-- show searched marker -->
+  <agm-marker [latitude]=" lat " [longitude]=" lng ">
+    <agm-info-window>
+      <strong>{{ city }}</strong>
+    </agm-info-window>
+  </agm-marker>
+<!-- show direction -->
+  <agm-direction *ngIf="dir" 
+                  [origin]="dir.origin" 
+                  [destination]="dir.destination"
+                  [drivingOptions]="drivingOptions"
+                  [transitOptions]="transitOptions" 
+                  [provideRouteAlternatives] = true
+                  [panel]="myPanel"
+                  [visible]="show">
+  </agm-direction>
+</agm-map>
+<div>
+  <!-- show clicked point location -->
+  <div class="float-sm-left">
+    <ul *ngIf="showMessage">
+      <li style="font-size: 14px">{{ message }}</li>
+    </ul>
+  </div>
+  <!-- show multi style map -->
+  <div class="btn-group float-sm-right" role="group" aria-label="Basic example">
+    <button class="btn btn-warning btn-sm active" aria-pressed="true" (click)="changeStyles(0)">Default</button>
+    <button class="btn btn-dark btn-sm active" aria-pressed="true" (click)="changeStyles(1)">Dark</button>
+    <button class="btn btn-warning btn-sm active" aria-pressed="true" (click)="changeStyles(2)">Retro</button>
+  </div>
+</div><br><br>
+<!-- show direction control -->
+<form (ngSubmit)="getDirection()">
+  <h5>Get Directions:</h5>
+  <!-- show origin -->
+  <div class="form-group">
+    <label for="Origin">Origin:</label>
+    <input placeholder="choose a starting point" autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control"
+      #origin [formControl]="originControl"  required>  <br>
+    <!-- show destination -->
+    <label for="destination">Destination:</label>
+    <input placeholder="choose a destination..." autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control"
+      #destination [formControl]="destinationControl" required> 
+  </div>
+<!-- show direction submit button -->
+  <div class="float-right">
+    <button class="btn btn-outline-info" type="submit" [disabled]="!valid">Go</button>
+    <button class="btn btn-outline-danger" (click)="directionOff()">Hide</button>
+  </div>
+</form><br><br><hr>
+<!-- show direction panel -->
+<div class="container-fluid">
+  <div #myPanel></div>
+</div>
+
